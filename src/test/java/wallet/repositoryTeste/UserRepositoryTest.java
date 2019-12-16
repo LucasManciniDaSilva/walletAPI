@@ -1,6 +1,7 @@
-package com.wallet.repositoryTeste;
+package wallet.repositoryTeste;
 
 
+import com.wallet.WalletApplication;
 import com.wallet.repository.UserRepository;
 import com.wallet.entity.User;
 import org.junit.After;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
@@ -17,7 +19,8 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = WalletApplication.class)
+@ContextConfiguration(classes = WalletApplication.class)
 @ActiveProfiles("test")
 public class UserRepositoryTest {
 
