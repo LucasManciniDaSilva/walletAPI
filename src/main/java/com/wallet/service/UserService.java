@@ -10,5 +10,9 @@ public interface UserService {
 
     Optional<User> findByEmail(String email);
 
+    User convertDtoToEntity(UserDTO dto);
+
+    UserDTO convertEntityToDto(User u);
+
 
 }

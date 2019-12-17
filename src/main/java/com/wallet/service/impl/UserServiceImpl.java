@@ -23,4 +23,26 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByEmail(String email) {
         return repository.findByEmailEquals(email);
     }
+
+    @Override
+    public User convertDtoToEntity(UserDTO dto) {
+        User u = new User();
+        u.setEmail(dto.getEmail());
+        u.setName(dto.getName());
+        u.setPassword(dto.getPassword());
+
+        return u;
+    }
+
+    @Override
+    public UserDTO convertEntityToDto(User u) {
+        UserDTO dto = new UserDTO();
+        dto.setEmail(u.getEmail());
+        dto.setName(u.getName());
+        dto.setPassword(u.getPassword());
+
+        return dto;
+    }
+
+
 }

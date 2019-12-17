@@ -1,4 +1,4 @@
-package wallet.repositoryTeste;
+package wallet.repositoryTest;
 
 
 import com.wallet.WalletApplication;
