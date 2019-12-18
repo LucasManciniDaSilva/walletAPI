@@ -1,5 +1,6 @@
 package com.wallet.service.impl;
 
+import com.wallet.dto.UserDTO;
 import com.wallet.entity.User;
 import com.wallet.repository.UserRepository;
 import com.wallet.service.UserService;

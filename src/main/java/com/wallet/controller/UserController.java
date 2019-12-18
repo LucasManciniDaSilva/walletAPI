@@ -1,8 +1,9 @@
 package com.wallet.controller;
 
+import com.wallet.dto.UserDTO;
 import com.wallet.entity.User;
+import com.wallet.response.Response;
 import com.wallet.service.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public ResponseEntity<Response<UserDto>> create(@Valid @RequestBody UserDto dto, BindingResult result) {
+    public ResponseEntity<Response<UserDTO>> create(@Valid @RequestBody UserDTO dto, BindingResult result) {
 
         Response<UserDTO> response = new Response<UserDTO>();
 
