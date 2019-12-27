@@ -1,19 +1,19 @@
 package com.wallet.service;
 
 import com.wallet.dto.UserDTO;
-import com.wallet.entity.User;
+import com.wallet.entity.Users;
 
 import java.util.Optional;
 
 public interface UserService {
 
-    User save(User u);
+    Users save(Users u);
 
-    Optional<User> findByEmail(String email);
+    Optional<Users> findByEmail(String email);
 
-    User convertDtoToEntity(UserDTO dto);
+    Users convertEntityToDto(UserDTO dto);
 
-    UserDTO convertEntityToDto(User u);
+    UserDTO convertDtoToEntity(Users u);
 
 
 }

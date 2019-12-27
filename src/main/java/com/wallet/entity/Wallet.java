@@ -1,33 +1,33 @@
 package com.wallet.entity;
 
+
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 
-
 @Entity
+@Table(name ="wallet")
 @Data
-@Table(name = "users")
-public class Users implements Serializable {
+public class Wallet implements Serializable {
 
-    private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 459783154987L;
 
     @Id
     @Column(name = "tx_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator.")
     private UUID id;
-    @Column(name = "tx_password", nullable = false)
-    @NotNull
-    private String password;
-    @Column(name = "tx_name", nullable = false)
+    @Column(name ="tx_name")
     @NotNull
     private String name;
-    @Column(name = "tx_email", nullable = false)
+    @Column(name = "nm_value")
     @NotNull
-    private String email;
+    private BigDecimal value;
+
+
 }

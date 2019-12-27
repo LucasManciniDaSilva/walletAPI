@@ -2,8 +2,8 @@ package wallet.repositoryTest;
 
 
 import com.wallet.WalletApplication;
+import com.wallet.entity.Users;
 import com.wallet.repository.UserRepository;
-import com.wallet.entity.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,8 +30,8 @@ public class UserRepositoryTest {
     UserRepository repository;
 
     @Before
-    public void setUp(){
-        User u = new User();
+    public void setUp() {
+        Users u = new Users();
         u.setName("Ike");
         u.setPassword("123456789");
         u.setEmail(EMAIL);
@@ -40,25 +40,25 @@ public class UserRepositoryTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         repository.deleteAll();
 
     }
 
     @Test
     public void testSave() {
-        User u = new User();
+        Users u = new Users();
         u.setName("teste");
         u.setPassword("123456");
         u.setEmail("teste@gmail.com");
 
-        User response = repository.save(u);
+        Users response = repository.save(u);
 
         assertNotNull(response);
     }
 
     public void testFindByEmail() {
-        Optional<User> response = repository.findByEmailEquals(EMAIL);
+        Optional<Users> response = repository.findByEmailEquals(EMAIL);
 
         assertTrue(response.isPresent());
         assertEquals(response.get().getEmail(), EMAIL);

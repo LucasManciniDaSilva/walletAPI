@@ -1,10 +1,11 @@
 package wallet.controllerTest;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wallet.WalletApplication;
-import io.gatling.core.json.Json;
+import com.wallet.dto.UserDTO;
+import com.wallet.entity.Users;
+import com.wallet.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
@@ -20,11 +21,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wallet.dto.UserDTO;
-import com.wallet.entity.User;
-import com.wallet.service.UserService;
+import java.util.UUID;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = WalletApplication.class)
@@ -33,8 +33,7 @@ import com.wallet.service.UserService;
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
-
-    private static final Long ID = 1L;
+    private static final UUID ID = UUID.fromString("a761f3ec-6371-4e76-9e8f-1deafefe15d4");
     private static final String EMAIL = "email@teste.com";
     private static final String NAME = "User Test";
     private static final String PASSWORD = "123456";
@@ -49,7 +48,7 @@ public class UserControllerTest {
     @Test
     public void testSave() throws Exception {
 
-        BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(getMockUser());
+        BDDMockito.given(service.save(Mockito.any(Users.class))).willReturn(getMockUser());
 
         mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayload(ID, EMAIL, NAME, PASSWORD))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -58,14 +57,14 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.data.id").value(ID))
                 .andExpect(jsonPath("$.data.email").value(EMAIL))
                 .andExpect(jsonPath("$.data.name").value(NAME))
-                .andExpect(jsonPath("$.data.password").value(PASSWORD));
+                .andExpect(jsonPath("$.data.password").doesNotExist());
 
     }
 
     @Test
     public void TestSaveInvalidUser() throws JsonProcessingException, Exception {
 
-        BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(getMockUser());
+        BDDMockito.given(service.save(Mockito.any(Users.class))).willReturn(getMockUser());
 
         mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayload(ID, "email", NAME, PASSWORD))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -75,8 +74,8 @@ public class UserControllerTest {
 
     }
 
-    public User getMockUser() {
-        User u = new User();
+    public Users getMockUser() {
+        Users u = new Users();
         u.setId(ID);
         u.setEmail(EMAIL);
         u.setName(NAME);
@@ -85,7 +84,7 @@ public class UserControllerTest {
         return u;
     }
 
-    public String getJsonPayload(Long id, String email, String name, String password) throws JsonProcessingException {
+    public String getJsonPayload(UUID id, String email, String name, String password) throws JsonProcessingException {
         UserDTO dto = new UserDTO();
         dto.setId(id);
         dto.setEmail(email);
