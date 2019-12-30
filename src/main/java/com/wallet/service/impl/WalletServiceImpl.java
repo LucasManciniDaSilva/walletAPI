@@ -38,6 +38,7 @@ public class WalletServiceImpl implements WalletService {
   @Override
   public WalletDTO convertDtoToEntity(Wallet w){
     WalletDTO dto = new WalletDTO();
+    dto.setId(w.getId());
     dto.setName(w.getName());
     dto.setValue(w.getValue());
 

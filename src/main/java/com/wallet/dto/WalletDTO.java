@@ -15,10 +15,10 @@ import java.util.UUID;
 public class WalletDTO {
 
     private UUID id;
-    @Length(min = 3)
+    @Length(min = 3, message = "Name need to contains more than 3 characters")
     @NotNull
     private String name;
-    @NotNull
+    @NotNull(message = "Enter a valid wallet value")
     private BigDecimal value;
 
 }
