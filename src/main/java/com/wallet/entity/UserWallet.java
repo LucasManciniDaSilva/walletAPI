@@ -27,11 +27,11 @@ public class UserWallet implements Serializable {
   @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator.")
   private UUID id;
 
-  @JoinColumn(name = "users", referencedColumnName = "tx_id")
+  @JoinColumn(name = "tx_users", referencedColumnName = "tx_id")
   @ManyToOne(fetch = FetchType.LAZY)
   private Users users;
 
-  @JoinColumn(name = "wallet", referencedColumnName = "tx_id")
+  @JoinColumn(name = "tx_wallet", referencedColumnName = "tx_id")
   @ManyToOne(fetch = FetchType.LAZY)
   private Wallet wallet;
 }

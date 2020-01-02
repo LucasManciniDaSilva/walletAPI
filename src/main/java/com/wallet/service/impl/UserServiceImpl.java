@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserDTO convertDtoToEntity(Users u) {
     UserDTO dto = new UserDTO();
+    dto.setId(u.getId());
     dto.setEmail(u.getEmail());
     dto.setName(u.getName());
 
