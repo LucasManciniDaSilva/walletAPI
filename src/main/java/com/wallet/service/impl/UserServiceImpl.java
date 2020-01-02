@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
   @Override
   public Users convertEntityToDto(UserDTO dto) {
     Users u = new Users();
-    if(ObjectUtils.isEmpty(u) && ObjectUtils.isEmpty(u.getEmail()))
     u.setEmail(dto.getEmail());
     u.setName(dto.getName());
     u.setPassword(Bcrypt.getHash(dto.getPassword()));

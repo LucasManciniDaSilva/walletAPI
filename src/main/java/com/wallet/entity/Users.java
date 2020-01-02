@@ -22,12 +22,9 @@ public class Users implements Serializable {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator.")
     private UUID id;
     @Column(name = "tx_password", nullable = false)
-    @NotNull
     private String password;
     @Column(name = "tx_name", nullable = false)
-    @NotNull
     private String name;
     @Column(name = "tx_email", nullable = false)
-    @NotNull
     private String email;
 }

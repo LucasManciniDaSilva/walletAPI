@@ -14,8 +14,10 @@ import java.util.UUID;
 public class UserDTO {
 
     private UUID id;
+    @NotNull
     @Email(message = "Invalid email")
     private String email;
+    @NotNull
     @Length(min = 3, max = 50, message = "Name need to contains between 3 and 50 characters")
     private String name;
     @NotNull
