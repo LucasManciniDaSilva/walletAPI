@@ -4,16 +4,16 @@ import com.wallet.dto.UserDTO;
 import com.wallet.entity.Users;
 
 import java.util.Optional;
+import org.apache.catalina.User;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
 
 public interface UserService {
 
-    Users save(Users u);
+    ResponseEntity postUser(Users users, UriComponentsBuilder uri);
 
     Optional<Users> findByEmail(String email);
 
-    Users convertEntityToDto(UserDTO dto);
-
-    UserDTO convertDtoToEntity(Users u);
 
 
 }

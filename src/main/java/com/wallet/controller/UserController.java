@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import org.springframework.web.util.UriComponentsBuilder;
 
 ;
 
@@ -26,21 +27,11 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public ResponseEntity<Response<UserDTO>> create(@Valid @RequestBody UserDTO dto, BindingResult result) {
+    public ResponseEntity postUser(@RequestBody UserDTO dto, UriComponentsBuilder uri){
+        return this.service.postUser(dto, uri);
 
-        Response<UserDTO> response = new Response<UserDTO>();
 
 
-        if (result.hasErrors()) {
-            result.getAllErrors().forEach(e -> response.getErros().add(e.getDefaultMessage()));
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        }
-
-        Users user = service.save(service.convertEntityToDto(dto));
-
-        response.setData(service.convertDtoToEntity(user));
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 }

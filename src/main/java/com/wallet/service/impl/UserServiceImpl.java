@@ -2,24 +2,43 @@ package com.wallet.service.impl;
 
 import com.wallet.dto.UserDTO;
 import com.wallet.entity.Users;
+import com.wallet.interfaces.converters.UserConverter;
 import com.wallet.repository.UserRepository;
 import com.wallet.service.UserService;
-import com.wallet.util.Bcrypt;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-  @Autowired UserRepository repository;
+  private final UserConverter userConverter;
+
+
+
+  @Autowired
+  UserRepository repository;
+
+  public UserServiceImpl(UserConverter userConverter) {
+    this.userConverter = userConverter;
+  }
+
 
   @Override
-  public Users save(Users u) {
+  public UserDTO postUser(Users users, UriComponentsBuilder uri) {
 
-    return repository.save(u);
+    UserDTO dto = new UserDTO();
+
+   userConverter.toDomain(dto);
+
+    repository.save(users);
+
+    return UserDTO.builder()
   }
 
   @Override
@@ -27,23 +46,4 @@ public class UserServiceImpl implements UserService {
     return repository.findByEmailEquals(email);
   }
 
-  @Override
-  public Users convertEntityToDto(UserDTO dto) {
-    Users u = new Users();
-    u.setEmail(dto.getEmail());
-    u.setName(dto.getName());
-    u.setPassword(Bcrypt.getHash(dto.getPassword()));
-
-    return u;
-  }
-
-  @Override
-  public UserDTO convertDtoToEntity(Users u) {
-    UserDTO dto = new UserDTO();
-    dto.setId(u.getId());
-    dto.setEmail(u.getEmail());
-    dto.setName(u.getName());
-
-    return dto;
-  }
 }

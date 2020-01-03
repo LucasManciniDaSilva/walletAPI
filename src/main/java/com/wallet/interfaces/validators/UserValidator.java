@@ -1,5 +1,6 @@
 package com.wallet.interfaces.validators;
 
+import com.wallet.dto.UserDTO;
 import com.wallet.entity.Users;
 import com.wallet.exception.MessageError;
 import com.wallet.exception.MessageError.ApiError;
@@ -20,18 +21,18 @@ public class UserValidator {
         this.messageError = messageError;
     }
 
-    public List<ApiError> validateValues(Users users){
+    public List<ApiError> validateValues(UserDTO dto){
         List<ApiError> errors = new ArrayList<>();
 
 
-            if(StringUtils.isBlank(users.getName())){
+        if(StringUtils.isBlank(dto.getName())){
                 errors.add(this.messageError.create(Messages.NAME_NOT_INFORMED));
         }
-        if(StringUtils.isBlank(users.getEmail())){
+        if(StringUtils.isBlank(dto.getEmail())){
             errors.add(this.messageError.create(Messages.EMAIL_NOT_INFORMED));
         }
 
-        if(StringUtils.isBlank(users.getPassword())){
+        if(StringUtils.isBlank(dto.getPassword())){
             errors.add(this.messageError.create(Messages.PASSWORD_NOT_INFORMED));
         }
         return errors;
