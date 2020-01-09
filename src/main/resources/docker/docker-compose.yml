@@ -1,25 +1,13 @@
 version: '3'
-volumes:
-  postgres:
-networks:
-  postgres:
-    driver: bridge
 services:
   postgres:
     image: postgres:9.5
-    container_name: wallet2
+    container_name: wallet3
     ports:
       - "5432:5432"
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-size: 500m
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: wallet
     volumes:
-      - ./db.sql:/docker-entrypoint-db.d/init.sql
-    networks:
-      - postgres
+      - ./init.sql:/docker-entrypoint-db.d/init.sql

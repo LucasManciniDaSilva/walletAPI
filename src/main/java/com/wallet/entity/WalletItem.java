@@ -1,8 +1,10 @@
 package com.wallet.entity;
 
 
+import com.wallet.interfaces.enums.TypeEnum;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -45,7 +47,7 @@ public class WalletItem implements Serializable {
 
   @NotNull
   @Column(name = "tx_type")
-  private String type;
+  private TypeEnum type;
 
   @NotNull
   @Column(name = "tx_description")
