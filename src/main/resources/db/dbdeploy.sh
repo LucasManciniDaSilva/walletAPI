@@ -7,7 +7,7 @@ password="NADA"
 
 getProperties(){
  driver=${POSTGRE_DRIVER:-org.postgresql.Driver}
- url="jdbc:postgresql:\/\/${DATABASE_HOST:-localhost}:${DATABASE_PORT:-5432}\/wallet2"
+ url="jdbc:postgresql:\/\/${DATABASE_HOST:-localhost}:${DATABASE_PORT:-5432}\/wallet4"
  username=${DATABASE_USER_NAME:-postgres}
  password=${DATABASE_USER_PASSWORD:-postgres}
 }
