@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wallet.WalletApplication;
 import com.wallet.dto.UserDTO;
 import com.wallet.entity.Users;
+import com.wallet.repository.UserRepository;
 import com.wallet.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +41,7 @@ public class UserControllerTest {
     private static final String URL = "/user";
 
     @MockBean
-    UserService service;
+    UserRepository service;
 
     @Autowired
     MockMvc mvc;

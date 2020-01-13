@@ -25,7 +25,11 @@ public class UserValidator {
         List<ApiError> errors = new ArrayList<>();
 
 
+<<<<<<< HEAD
             if(StringUtils.isBlank(dto.getName())){
+=======
+        if(StringUtils.isBlank(dto.getName())){
+>>>>>>> 57702a3ec372b62c56e5297ec04a33ce63f4191c
                 errors.add(this.messageError.create(Messages.NAME_NOT_INFORMED));
         }
         if(StringUtils.isBlank(dto.getEmail())){

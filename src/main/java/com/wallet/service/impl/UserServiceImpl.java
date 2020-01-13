@@ -5,6 +5,7 @@ import com.wallet.dto.UserDTO;
 import com.wallet.dto.UserDTOResponse;
 import com.wallet.dto.converter.UserConverter;
 import com.wallet.entity.Users;
+<<<<<<< HEAD
 import com.wallet.exception.MessageError;
 import com.wallet.exception.PreconditionFailedException;
 import com.wallet.exception.UnprocessableEntityException;
@@ -17,11 +18,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+=======
+import com.wallet.interfaces.converters.UserConverter;
+import com.wallet.repository.UserRepository;
+import com.wallet.service.UserService;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+>>>>>>> 57702a3ec372b62c56e5297ec04a33ce63f4191c
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+<<<<<<< HEAD
   private final UserValidator userValidator;
   private final UserConverter userConverter;
   private final MessageError messageError;
@@ -37,19 +51,22 @@ public class UserServiceImpl implements UserService {
     this.userConverter = userConverter;
     this.messageError = messageError1;
   }
+=======
+  private final UserConverter userConverter;
+>>>>>>> 57702a3ec372b62c56e5297ec04a33ce63f4191c
 
-  @Override
-  public Users save(Users u) {
 
-    return repository.save(u);
+
+  @Autowired
+  UserRepository repository;
+
+  public UserServiceImpl(UserConverter userConverter) {
+    this.userConverter = userConverter;
   }
 
-  @Override
-  public Optional<Users> findByEmail(String email) {
-    return repository.findByEmailEquals(email);
-  }
 
   @Override
+<<<<<<< HEAD
   public Users postUsers(UserDTO dto, UriComponentsBuilder uri) {
 
     List<MessageError.ApiError> errors = this.userValidator.validateValues(dto);
@@ -67,10 +84,22 @@ public class UserServiceImpl implements UserService {
     }
 
     return this.repository.save(users);
+=======
+  public UserDTO postUser(Users users, UriComponentsBuilder uri) {
+
+    UserDTO dto = new UserDTO();
+
+   userConverter.toDomain(dto);
+
+    repository.save(users);
+
+    return UserDTO.builder()
+>>>>>>> 57702a3ec372b62c56e5297ec04a33ce63f4191c
   }
 
 
   @Override
+<<<<<<< HEAD
   public UserDTOResponse postUserService(UserDTO dto, UriComponentsBuilder uri){
 
     final Users users = postUsers(dto, uri);
@@ -85,4 +114,10 @@ public class UserServiceImpl implements UserService {
   }
 
 
+=======
+  public Optional<Users> findByEmail(String email) {
+    return repository.findByEmailEquals(email);
+  }
+
+>>>>>>> 57702a3ec372b62c56e5297ec04a33ce63f4191c
 }
