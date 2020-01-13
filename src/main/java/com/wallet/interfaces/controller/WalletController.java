@@ -1,4 +1,4 @@
-package com.wallet.controller;
+package com.wallet.interfaces.controller;
 
 import com.wallet.dto.WalletDTO;
 import com.wallet.entity.Wallet;

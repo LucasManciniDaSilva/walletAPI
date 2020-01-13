@@ -1,19 +1,11 @@
 package com.wallet.service.impl;
 
-import com.wallet.dto.UserDTO;
 import com.wallet.dto.WalletDTO;
-import com.wallet.entity.Users;
 import com.wallet.entity.Wallet;
-import com.wallet.repository.UserRepository;
 import com.wallet.repository.WalletRepository;
-import com.wallet.service.UserService;
 import com.wallet.service.WalletService;
-import com.wallet.util.Bcrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-
-import java.util.Optional;
 
 @Service
 public class WalletServiceImpl implements WalletService {

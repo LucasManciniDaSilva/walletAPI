@@ -1,20 +1,42 @@
 package com.wallet.service.impl;
 
+import com.google.common.collect.Lists;
 import com.wallet.dto.UserDTO;
+import com.wallet.dto.UserDTOResponse;
+import com.wallet.dto.converter.UserConverter;
 import com.wallet.entity.Users;
+import com.wallet.exception.MessageError;
+import com.wallet.exception.PreconditionFailedException;
+import com.wallet.exception.UnprocessableEntityException;
+import com.wallet.interfaces.Messages;
+import com.wallet.interfaces.validators.UserValidator;
 import com.wallet.repository.UserRepository;
 import com.wallet.service.UserService;
-import com.wallet.util.Bcrypt;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-
+import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-  @Autowired UserRepository repository;
+  private final UserValidator userValidator;
+  private final UserConverter userConverter;
+  private final MessageError messageError;
+
+
+  @Autowired
+  UserRepository repository;
+
+  public UserServiceImpl(UserValidator userValidator,
+      UserConverter userConverter, MessageError messageError,
+      MessageError messageError1) {
+    this.userValidator = userValidator;
+    this.userConverter = userConverter;
+    this.messageError = messageError1;
+  }
 
   @Override
   public Users save(Users u) {
@@ -28,22 +50,39 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Users convertEntityToDto(UserDTO dto) {
-    Users u = new Users();
-    u.setEmail(dto.getEmail());
-    u.setName(dto.getName());
-    u.setPassword(Bcrypt.getHash(dto.getPassword()));
+  public Users postUsers(UserDTO dto, UriComponentsBuilder uri) {
 
-    return u;
+    List<MessageError.ApiError> errors = this.userValidator.validateValues(dto);
+    if (errors != null && !errors.isEmpty()) {
+      throw new PreconditionFailedException(errors);
+    }
+
+    Users users = this.userConverter.toUserDomain(dto);
+
+    final Optional<Users> user = repository.findByEmailEquals(users.getEmail());
+
+    if (user.isPresent()) {
+      throw new UnprocessableEntityException(
+          Lists.newArrayList(this.messageError.create(Messages.EXIST_EMAIL)));
+    }
+
+    return this.repository.save(users);
   }
+
 
   @Override
-  public UserDTO convertDtoToEntity(Users u) {
-    UserDTO dto = new UserDTO();
-    dto.setId(u.getId());
-    dto.setEmail(u.getEmail());
-    dto.setName(u.getName());
+  public UserDTOResponse postUserService(UserDTO dto, UriComponentsBuilder uri){
 
-    return dto;
+    final Users users = postUsers(dto, uri);
+
+    return UserDTOResponse.builder()
+        .id(users.getId())
+        .email(users.getEmail())
+        .name(users.getName())
+        .build();
+
+
   }
+
+
 }

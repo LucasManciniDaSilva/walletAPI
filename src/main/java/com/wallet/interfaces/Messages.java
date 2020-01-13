@@ -13,4 +13,5 @@ public interface Messages {
     String INVALID_EMAIL = "412.004";
     String INVALID_NAME = "412.005";
     String INVALID_PASSWORD = "412.006";
+    String EXIST_EMAIL = "412.007";
 }

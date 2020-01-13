@@ -1,9 +1,11 @@
 package com.wallet.service;
 
 import com.wallet.dto.UserDTO;
+import com.wallet.dto.UserDTOResponse;
 import com.wallet.entity.Users;
 
 import java.util.Optional;
+import org.springframework.web.util.UriComponentsBuilder;
 
 public interface UserService {
 
@@ -11,9 +13,8 @@ public interface UserService {
 
     Optional<Users> findByEmail(String email);
 
-    Users convertEntityToDto(UserDTO dto);
+    Users postUsers(UserDTO dto, UriComponentsBuilder uri);
 
-    UserDTO convertDtoToEntity(Users u);
-
+    UserDTOResponse postUserService(UserDTO dto, UriComponentsBuilder uri);
 
 }

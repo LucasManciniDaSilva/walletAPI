@@ -1,6 +1,5 @@
-package com.wallet.controller;
+package com.wallet.interfaces.controller;
 
-import com.wallet.dto.UserDTO;
 import com.wallet.dto.UserWalletDTO;
 import com.wallet.entity.UserWallet;
 import com.wallet.response.Response;
