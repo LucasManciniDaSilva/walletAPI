@@ -171,5 +171,16 @@ public class WalletItemRepositoryTest {
 
   }
 
+  @Test
+  public void testSumByWallet(){
+    Optional<Wallet> w = walletRepository.findById(savedWalletId);
+
+    repository.save(new WalletItem(null, w.get(), DATE, TYPE, DESCRIPTION, BigDecimal.valueOf(150.80)));
+
+    BigDecimal response = repository.sumByWalletId(savedWalletItemID);
+
+    assertEquals(response.compareTo(BigDecimal.valueOf(215.8)), 0);
+  }
+
 
 }
